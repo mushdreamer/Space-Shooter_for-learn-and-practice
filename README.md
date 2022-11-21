@@ -1,1 +1,5 @@
 # Space-Shooter
+Github创建一个repository，记得在.gitignore加上unity之后再创建
+进入Github Desktop之后点击clone到Unity Project并且可以为自己的游戏命名
+在unity创建新的文件，地址选择在Unity Project的自己的游戏文件里
+之后进入Unity Desktop可以commit之后push进Github
