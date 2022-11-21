@@ -5,7 +5,12 @@
 
 3.在unity创建新的文件，地址选择在Desktop即可
 
-4.之后进入Unity Desktop可以commit之后push进Github
+4.之后进入Desktop的Unity游戏文件将所有文件copy之后paste到Github Unity创建的文件里
+
+5.之后可以进入Github Desktop进行commit和push
 
 
 关于编写之后的commit和push
+1.进入Unity Hub移除本地的Unity Project然后open刚刚Github Unity文件里面已经和Github绑定好的游戏文件
+
+2.修改文件之后可以直接在Github Desktop进行commit和push
