@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         /*射击的每一秒都要计算检查冷却系统因此写到这里*/
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
         {
-            playerMovement();
+            playerShoot();
         }
     }
 
