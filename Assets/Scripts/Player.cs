@@ -4,24 +4,48 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float speed = 3.5f;//搞一个基础速度
+    private float speed = 3.5f;//搞一个基础速度
+    /*接下来我们要创建发射子弹的冷却时间，发射子弹属于玩家行为因此在Player文件里进行编辑（Bullets定义了子弹的性质但是发射子弹是玩家行为因此不在Bullets编辑）
+      首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.5秒后才可以发射下一颗子弹
+      概念
+      Time.time
+      The time at the beginning of this frame (Read Only).计算游戏一共进行了多久
+      冷却时间的逻辑：我们运用游戏总共的时长来创建一个冷却系统
+      我们通过让每一次的冷却时间都加上游戏进行的时间形成“新的冷却时间”
+      让“新的冷却时间”-“游戏进行的时间”=0.5实现游戏时长在增加但是冷却还是0.5
+      因此我们需要引入一个新的变量canFire（开枪状态）来记录这个“新的冷却时间”
+      “游戏进行的时间”大于“新的冷却时间”就等价于“游戏进行的时间”-“新的冷却时间”>0就等价于游戏时长-（游戏时长+冷却时间）>0就等价于冷却时间<0就等价于没有冷却时间因此是可以开枪的*/
+    private float fireRate = 0.5f;//创建冷却时间
+    private float canFire;//创建“新的冷却时间”
     /*根据玩家按键来进行上下左右的移动：创建两个变量来接受按键参数，根据unity的设定，当玩家按上键和右键时会返还1，下键和左键会返还-1，因此这两个变量会根据玩家按键
      来给予一个正或负的速度来进行上下左右移动*/
     float getHorizontal;
     float getVertical;
+    /*概念
+      [SerializeField]
+      使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
+    [SerializeField]
+    /*使用private这样bullets就不会被其他东西替换掉，玩家也没有权限访问bullets的属性，更加安全*/
+    private GameObject bullets;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
+    // Update is called once per frame每秒都要检查的状态都写在update里
     void Update()
     {
-        Movement();
+        /*每秒都要移动因此写到这里*/
+        playerMovement();
+        /*射击的每一秒都要计算检查冷却系统因此写到这里*/
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
+        {
+            playerMovement();
+        }
     }
 
-    void Movement()
+    void playerMovement()
     {
         /* 概念
         * Input.GetAxis
@@ -97,5 +121,10 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(17.20577f, transform.position.y, 0);
         }
+    }
+    void playerShoot()
+    {
+            canFire = Time.time + fireRate;
+            Instantiate(bullets, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
     }
 }
