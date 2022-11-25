@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 3.5f;//搞一个基础速度
+    private float speed = 16.0f;//搞一个基础速度
     /*接下来我们要创建发射子弹的冷却时间，发射子弹属于玩家行为因此在Player文件里进行编辑（Bullets定义了子弹的性质但是发射子弹是玩家行为因此不在Bullets编辑）
       首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.5秒后才可以发射下一颗子弹
       概念
@@ -15,18 +15,21 @@ public class Player : MonoBehaviour
       让“新的冷却时间”-“游戏进行的时间”=0.5实现游戏时长在增加但是冷却还是0.5
       因此我们需要引入一个新的变量canFire（开枪状态）来记录这个“新的冷却时间”
       “游戏进行的时间”大于“新的冷却时间”就等价于“游戏进行的时间”-“新的冷却时间”>0就等价于游戏时长-（游戏时长+冷却时间）>0就等价于冷却时间<0就等价于没有冷却时间因此是可以开枪的*/
-    private float fireRate = 0.5f;//创建冷却时间
+    private float fireRate = 0.3f;//创建冷却时间
     private float canFire;//创建“新的冷却时间”
     /*根据玩家按键来进行上下左右的移动：创建两个变量来接受按键参数，根据unity的设定，当玩家按上键和右键时会返还1，下键和左键会返还-1，因此这两个变量会根据玩家按键
      来给予一个正或负的速度来进行上下左右移动*/
-    float getHorizontal;
-    float getVertical;
+    float getHorizontal;/*创建横向方向*/
+    float getVertical;/*创建纵向方向*/
     /*概念
       [SerializeField]
       使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
     [SerializeField]
     /*使用private这样bullets就不会被其他东西替换掉，玩家也没有权限访问bullets的属性，更加安全*/
+    /*在Player这里加入GameObject能够将我们定义好的Bullets拖到Unity的Script里来定义这个bullets GameObject，实现GameObject bullets等价于Unity Bullets*/
     private GameObject bullets;
+    [SerializeField]
+    private int health = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,7 @@ public class Player : MonoBehaviour
         {
             playerShoot();
         }
+        playerDeath();
     }
 
     void playerMovement()
@@ -73,8 +77,8 @@ public class Player : MonoBehaviour
 
 
         /*速度公式 3：在第二条速度公式的基础上将新位置参数改成一个新的变量,实现速度=方向*时间*基础速度*/
-        getHorizontal = Input.GetAxis("Horizontal");
-        getVertical = Input.GetAxis("Vertical");
+        getHorizontal = Input.GetAxis("Horizontal");/*横向方向的键位读取*/
+        getVertical = Input.GetAxis("Vertical");/*纵向方向的键位读取*/
 
         Vector3 direction = new Vector3(getHorizontal, getVertical, 0);
 
@@ -126,5 +130,19 @@ public class Player : MonoBehaviour
     {
             canFire = Time.time + fireRate;
             Instantiate(bullets, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            health -= 1;
+        }
+    }
+    void playerDeath()
+    {
+        if(health < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
