@@ -16,11 +16,11 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if(transform.position.y < -5.80628f)
+        if (transform.position.y < -5.80628f)
         {
-            float randomX = Random.Range(-15.5f, 15.5f);
-            transform.position = new Vector3(randomX, 7.8464151f, 0);
+            Destroy(this.gameObject);
         }
+
     }
 
     /*¸ÅÄî
