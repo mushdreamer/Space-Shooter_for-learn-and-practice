@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
      来给予一个正或负的速度来进行上下左右移动*/
     float getHorizontal;/*创建横向方向*/
     float getVertical;/*创建纵向方向*/
+    private SpawnManager spawnManager;//在player里面定义一个variable使其能够直接锁定到Spawn Manager文件里
     /*概念
       [SerializeField]
       使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
     }
 
     // Update is called once per frame每秒都要检查的状态都写在update里
@@ -131,7 +134,7 @@ public class Player : MonoBehaviour
             canFire = Time.time + fireRate;
             Instantiate(bullets, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
@@ -142,6 +145,7 @@ public class Player : MonoBehaviour
     {
         if(health < 1)
         {
+            spawnManager.nomoreEnemy();
             Destroy(this.gameObject);
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private bool startSpawn = true;
     [SerializeField]
     private GameObject enemy;
     // Start is called before the first frame update
@@ -19,11 +20,23 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator spawn()
     {
-        while (true)
+        while (startSpawn == true)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-15.5f, 15.5f), 7.8464151f, 0);
             Instantiate(enemy, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
         }
+    }
+    /*在玩家死亡后停止生成敌人
+      首先敌人生成的逻辑是startSpawn为true时一直生成，而默认startSpawn为true
+      我们引入一个函数nomoreEnemy，使得在一旦调用这个函数startSpawn就会变成false从而禁用spawn函数从而停止生成敌人
+      逻辑是玩家死亡时会调用nomoreEnemy函数，因此要让这个函数被玩家死亡playerDeath调用，而playerDeath函数理所当然写在player文件里，因此要在player文件里access SpawnManager文件才能调用
+      因此我们需要在player文件里创建一个variable使其能够找到SpawnManager文件
+      写法：
+      private SpawnManager（文件名） spawnManager（variable名）
+      spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>()*/
+    public void nomoreEnemy()
+    {
+        startSpawn= false;
     }
 }
