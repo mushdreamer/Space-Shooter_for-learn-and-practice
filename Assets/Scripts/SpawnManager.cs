@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-15.5f, 15.5f), 7.8464151f, 0);
             Instantiate(enemy, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.2f);
         }
     }
     /*在玩家死亡后停止生成敌人

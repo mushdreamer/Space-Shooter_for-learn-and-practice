@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float speed = 16.0f;//搞一个基础速度
+    private float speed = 10.0f;//搞一个基础速度
     /*接下来我们要创建发射子弹的冷却时间，发射子弹属于玩家行为因此在Player文件里进行编辑（Bullets定义了子弹的性质但是发射子弹是玩家行为因此不在Bullets编辑）
       首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.5秒后才可以发射下一颗子弹
       概念
