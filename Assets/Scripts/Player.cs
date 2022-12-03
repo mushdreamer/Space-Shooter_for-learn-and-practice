@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     float getHorizontal;/*创建横向方向*/
     float getVertical;/*创建纵向方向*/
     private SpawnManager spawnManager;//在player里面定义一个variable使其能够直接锁定到Spawn Manager文件里
+    private bool tripleShot = false;//引入三发子弹控制变量来控制tripleshot，使他的初始值是false，之后调用可以开枪的函数时使这个变量为true，即可开枪。
     /*概念
       [SerializeField]
       使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour
     /*使用private这样bullets就不会被其他东西替换掉，玩家也没有权限访问bullets的属性，更加安全*/
     /*在Player这里加入GameObject能够将我们定义好的Bullets拖到Unity的Script里来定义这个bullets GameObject，实现GameObject bullets等价于Unity Bullets*/
     private GameObject bullets;
+    [SerializeField]
+    private GameObject tripleKill;
     [SerializeField]
     private int health = 3;
     // Start is called before the first frame update
@@ -132,7 +135,15 @@ public class Player : MonoBehaviour
     void playerShoot()
     {
             canFire = Time.time + fireRate;
+
+        if (tripleShot == true)
+        {
+            Instantiate(tripleKill, transform.position, Quaternion.identity);
+        } else
+        {
             Instantiate(bullets, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        }
+            
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -148,5 +159,17 @@ public class Player : MonoBehaviour
             spawnManager.nomoreEnemy();
             Destroy(this.gameObject);
         }
+    }
+
+    public void tripleshotReady()
+    {
+        tripleShot = true;
+        StartCoroutine(usetripleshotClose());
+    }
+
+    IEnumerator usetripleshotClose()
+    {
+        yield return new WaitForSeconds(5);
+        tripleShot= false;
     }
 }

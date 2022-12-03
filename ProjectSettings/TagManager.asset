@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullets
   - Enemy
+  - TripleShot_PowerUp
   layers:
   - Default
   - TransparentFX

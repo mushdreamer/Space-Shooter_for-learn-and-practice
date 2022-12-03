@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private bool startSpawn = true;
+    private bool startSpawnEnemy = true;
+    private bool startSpawnTriple = true;
     [SerializeField]
     private GameObject enemy;
+    [SerializeField]
+    private GameObject TripleShot_PowerUp;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spawn());
+        StartCoroutine(spawnEnemy());
+        StartCoroutine(spawnTriple());
     }
 
     // Update is called once per frame
@@ -18,13 +22,22 @@ public class SpawnManager : MonoBehaviour
     {
         
     }
-    IEnumerator spawn()
+    IEnumerator spawnEnemy()
     {
-        while (startSpawn == true)
+        while (startSpawnEnemy == true)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-15.5f, 15.5f), 7.8464151f, 0);
             Instantiate(enemy, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(0.6f);
+        }
+    }
+    IEnumerator spawnTriple()
+    {
+        while (startSpawnTriple == true)
+        {
+            Vector3 spawnPosition = new Vector3(Random.Range(-15.5f, 15.5f), 7.8464151f, 0);
+            Instantiate(TripleShot_PowerUp, spawnPosition, Quaternion.identity);
+            yield return new WaitForSeconds(10);
         }
     }
     /*在玩家死亡后停止生成敌人
@@ -37,6 +50,6 @@ public class SpawnManager : MonoBehaviour
       spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>()*/
     public void nomoreEnemy()
     {
-        startSpawn= false;
+        startSpawnEnemy = false;
     }
 }
