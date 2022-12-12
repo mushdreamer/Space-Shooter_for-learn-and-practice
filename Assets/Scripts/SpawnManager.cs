@@ -5,20 +5,16 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private bool startSpawnEnemy = true;
-    private bool startSpawnTriple = true;
-    private bool startSpawnSpeed = true;
+    private bool startSpawnPowerUp = true;
     [SerializeField]
     private GameObject enemy;
     [SerializeField]
-    private GameObject TripleShot_PowerUp;
-    [SerializeField]
-    private GameObject SpeedUp_PowerUp;
+    private GameObject[] PowerUp;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(spawnEnemy());
-        StartCoroutine(spawnTriple());
-        StartCoroutine(spawnSpeed());
+        StartCoroutine(spawnPowerUp());
     }
 
     // Update is called once per frame
@@ -35,21 +31,16 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
     }
-    IEnumerator spawnTriple()
+    IEnumerator spawnPowerUp()
     {
-        while (startSpawnTriple == true)
+        while (startSpawnPowerUp == true)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-9.866952f, 10.6117f), 4.716207f, 0);
-            Instantiate(TripleShot_PowerUp, spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(5.001f, 10.0f));
-        }
-    }
-    IEnumerator spawnSpeed()
-    {
-        while (startSpawnSpeed == true)
-        {
-            Vector3 spawnPosition = new Vector3(Random.Range(-9.866952f, 10.6117f), 4.716207f, 0);
-            Instantiate(SpeedUp_PowerUp, spawnPosition, Quaternion.identity);
+            /*概念
+              Random.range包括左边的数但是不包括右边的数字
+              也就是说，Random.Range(0,3)是0，1，2*/
+            int SpawnNumber = Random.Range(0, 3);
+            Instantiate(PowerUp[2], spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5.001f, 10.0f));
         }
     }
@@ -66,13 +57,9 @@ public class SpawnManager : MonoBehaviour
         startSpawnEnemy = false;
     }
 
-    public void nomoreTriple()
+    public void nomorePowerUp()
     {
-        startSpawnTriple = false;
+        startSpawnPowerUp = false;
     }
     
-    public void nomoreSpeed()
-    {
-        startSpawnSpeed = false;
-    }
 }

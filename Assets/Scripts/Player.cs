@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private SpawnManager spawnManager;//在player里面定义一个variable使其能够直接锁定到Spawn Manager文件里
     private bool tripleShot = false;//引入三发子弹控制变量来控制tripleshot，使他的初始值是false，之后调用可以开枪的函数时使这个变量为true，即可开枪。
     private bool speedUp = false;
+    private bool shieldStatus = false;
     /*概念
       [SerializeField]
       使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, -1.47f, 0);
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
     }
@@ -159,7 +160,20 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            health -= 1;
+            if(shieldStatus == true)
+            {
+                /*概念
+                  return会立刻终止于此
+                  也就是说，使用return之后函数不会运行return下面的代码直到这个包含了return的函数结束
+                  因此在我们护盾为激活状态时，我们立刻关闭护盾激活状态，但是由于return终止了函数继续运行所以不会受到伤害
+                  但是在第二此碰撞时在运行这个函数护盾状态就不是激活了，因此会走下面的受伤害函数*/
+                shieldStatus= false;
+                return;
+            }
+            else
+            {
+                health -= 1;
+            }
         }
     }
     void playerDeath()
@@ -167,8 +181,7 @@ public class Player : MonoBehaviour
         if(health < 1)
         {
             spawnManager.nomoreEnemy();
-            spawnManager.nomoreTriple();
-            spawnManager.nomoreSpeed();
+            spawnManager.nomorePowerUp();
             Destroy(this.gameObject);
         }
     }
@@ -196,4 +209,15 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5);
         speedUp = false;
     }
+
+    public void shieldReady()
+    {
+        shieldStatus = true;
+        /*StartCoroutine(useshieldClose());*/
+    }
+/*    IEnumerator useshieldClose()
+    {
+        yield return new WaitForSeconds(5);
+        shieldStatus = false;
+    }*/
 }

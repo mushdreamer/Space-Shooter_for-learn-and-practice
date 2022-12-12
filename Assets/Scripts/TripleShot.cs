@@ -9,6 +9,7 @@ public class TripleShot : MonoBehaviour
     private float speed = 3.0f;
     private Player TripleShotReady;
     private Player SpeedUpReady;
+    private Player ShieldReady;
     [SerializeField]
     private int PowerUpID;
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class TripleShot : MonoBehaviour
     {
         TripleShotReady = GameObject.Find("Player").GetComponent<Player>();
         SpeedUpReady = GameObject.Find("Player").GetComponent<Player>();
+        ShieldReady = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,16 @@ public class TripleShot : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            /*概念
+              Switch(choose)
+              {
+                 case 0;当choose等于0时
+                 break;
+                 case 1;当choose等于1时
+                 break;
+                 case 2;当choose等于2时
+                 break;
+            }*/
             switch (PowerUpID)
             {
                 case 0:
@@ -44,6 +56,8 @@ public class TripleShot : MonoBehaviour
                     Destroy(this.gameObject);
                     break;
                 case 2:
+                    ShieldReady.shieldReady();
+                    Destroy(this.gameObject);
                     break;
             }
         }
