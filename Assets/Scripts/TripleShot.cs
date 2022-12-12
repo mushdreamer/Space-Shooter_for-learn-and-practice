@@ -33,15 +33,18 @@ public class TripleShot : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (PowerUpID == 0)
+            switch (PowerUpID)
             {
-                TripleShotReady.tripleshotReady();
-                Destroy(this.gameObject);
-            }
-            else if (PowerUpID == 1)
-            {
-                SpeedUpReady.speedupReady();
-                Destroy(this.gameObject);
+                case 0:
+                    TripleShotReady.tripleshotReady();
+                    Destroy(this.gameObject);
+                    break;
+                case 1:
+                    SpeedUpReady.speedupReady();
+                    Destroy(this.gameObject);
+                    break;
+                case 2:
+                    break;
             }
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float speed = 10.0f;//搞一个基础速度
+    private float multiplier = 2.0f;//搞一个加速度
     /*接下来我们要创建发射子弹的冷却时间，发射子弹属于玩家行为因此在Player文件里进行编辑（Bullets定义了子弹的性质但是发射子弹是玩家行为因此不在Bullets编辑）
       首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.3秒后才可以发射下一颗子弹
       概念
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
 
         if(speedUp == true)
         {
-            transform.Translate(direction * speed * Time.deltaTime * 2);
+            transform.Translate(direction * speed * Time.deltaTime * multiplier);
         }
         else
         {
@@ -124,13 +125,13 @@ public class Player : MonoBehaviour
         /*滚动屏幕逻辑（视觉效果非实际滚动）
           当玩家在最右边屏幕上时，让玩家从左边出现。反之玩家在最左边屏幕时，让玩家从右边出现
           当玩家在最上面屏幕时，让玩家在下面出现，繁殖玩家在最下面屏幕时，让玩家从上面出现*/
-        if (transform.position.y >= 4.7162071f)
+        if (transform.position.y >= 4.659515f)
         {
-            transform.position = new Vector3(transform.position.x, -3.848022f, 0);
+            transform.position = new Vector3(transform.position.x, 4.659515f, 0);
         }
-        else if (transform.position.y <= -3.8480221f)
+        else if (transform.position.y <= -2.692139f)
         {
-            transform.position = new Vector3(transform.position.x, 4.716207f, 0);
+            transform.position = new Vector3(transform.position.x, -2.692139f, 0);
         }
         if (transform.position.x >= 10.61171f)
         {
