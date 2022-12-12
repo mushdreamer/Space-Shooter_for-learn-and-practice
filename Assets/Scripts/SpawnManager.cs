@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour
               Random.range包括左边的数但是不包括右边的数字
               也就是说，Random.Range(0,3)是0，1，2*/
             int SpawnNumber = Random.Range(0, 3);
-            Instantiate(PowerUp[2], spawnPosition, Quaternion.identity);
+            Instantiate(PowerUp[SpawnNumber], spawnPosition, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5.001f, 10.0f));
         }
     }

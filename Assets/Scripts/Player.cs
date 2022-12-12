@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     private GameObject tripleKill;
     [SerializeField]
     private int health = 3;
+    [SerializeField]
+    private GameObject shieldVisualizer;
     // Start is called before the first frame update
     void Start()
     {
@@ -165,9 +167,10 @@ public class Player : MonoBehaviour
                 /*概念
                   return会立刻终止于此
                   也就是说，使用return之后函数不会运行return下面的代码直到这个包含了return的函数结束
-                  因此在我们护盾为激活状态时，我们立刻关闭护盾激活状态，但是由于return终止了函数继续运行所以不会受到伤害
-                  但是在第二此碰撞时在运行这个函数护盾状态就不是激活了，因此会走下面的受伤害函数*/
-                shieldStatus= false;
+                  因此，在碰撞护盾加成时，我们激活了护盾状态以及护盾的显示动画（此时他们的状态变为true）
+                  而在触碰到敌人时会将这些状态重新变成false，不过相应的，这个函数会直接return因此不走那个掉血的函数，因此玩家不会受到伤害*/
+                shieldStatus = false;
+                shieldVisualizer.SetActive(false);
                 return;
             }
             else
@@ -213,6 +216,7 @@ public class Player : MonoBehaviour
     public void shieldReady()
     {
         shieldStatus = true;
+        shieldVisualizer.SetActive(true);
         /*StartCoroutine(useshieldClose());*/
     }
 /*    IEnumerator useshieldClose()
