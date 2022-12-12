@@ -6,15 +6,15 @@ public class Player : MonoBehaviour
 {
     private float speed = 10.0f;//搞一个基础速度
     /*接下来我们要创建发射子弹的冷却时间，发射子弹属于玩家行为因此在Player文件里进行编辑（Bullets定义了子弹的性质但是发射子弹是玩家行为因此不在Bullets编辑）
-      首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.5秒后才可以发射下一颗子弹
+      首先fireRate是发射一颗子弹的冷却时间，我们规定发射一枚子弹后0.3秒后才可以发射下一颗子弹
       概念
       Time.time
       The time at the beginning of this frame (Read Only).计算游戏一共进行了多久
       冷却时间的逻辑：我们运用游戏总共的时长来创建一个冷却系统
       我们通过让每一次的冷却时间都加上游戏进行的时间形成“新的冷却时间”
-      让“新的冷却时间”-“游戏进行的时间”=0.5实现游戏时长在增加但是冷却还是0.5
+      让“新的冷却时间”-“游戏进行的时间”=0.3实现游戏时长在增加但是冷却还是0.3
       因此我们需要引入一个新的变量canFire（开枪状态）来记录这个“新的冷却时间”
-      “游戏进行的时间”大于“新的冷却时间”就等价于“游戏进行的时间”-“新的冷却时间”>0就等价于游戏时长-（游戏时长+冷却时间）>0就等价于冷却时间<0就等价于没有冷却时间因此是可以开枪的*/
+      “新的冷却时间”小于“游戏进行的时间”就等价于“新的冷却时间”-“游戏进行的时间”<0就等价于(游戏时长+冷却时间)-游戏时长<0就等价于冷却时间<0就等价于没有冷却时间因此是可以开枪的*/
     private float fireRate = 0.3f;//创建冷却时间
     private float canFire;//创建“新的冷却时间”
     /*根据玩家按键来进行上下左右的移动：创建两个变量来接受按键参数，根据unity的设定，当玩家按上键和右键时会返还1，下键和左键会返还-1，因此这两个变量会根据玩家按键
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     float getVertical;/*创建纵向方向*/
     private SpawnManager spawnManager;//在player里面定义一个variable使其能够直接锁定到Spawn Manager文件里
     private bool tripleShot = false;//引入三发子弹控制变量来控制tripleshot，使他的初始值是false，之后调用可以开枪的函数时使这个变量为true，即可开枪。
+    private bool speedUp = false;
     /*概念
       [SerializeField]
       使用时，原先不显示在inspector（在unity中编辑GameObject的特性的面板）里面的private变量将显示出来*/
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
         /*每秒都要移动因此写到这里*/
         playerMovement();
         /*射击的每一秒都要计算检查冷却系统因此写到这里*/
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && canFire < Time.time)
         {
             playerShoot();
         }
@@ -88,7 +89,15 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(getHorizontal, getVertical, 0);
 
-        transform.Translate(direction * speed * Time.deltaTime);
+        if(speedUp == true)
+        {
+            transform.Translate(direction * speed * Time.deltaTime * 2);
+        }
+        else
+        {
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
+        
 
         //限制玩家移动范围在屏幕内
         /*概念
@@ -115,21 +124,21 @@ public class Player : MonoBehaviour
         /*滚动屏幕逻辑（视觉效果非实际滚动）
           当玩家在最右边屏幕上时，让玩家从左边出现。反之玩家在最左边屏幕时，让玩家从右边出现
           当玩家在最上面屏幕时，让玩家在下面出现，繁殖玩家在最下面屏幕时，让玩家从上面出现*/
-        if (transform.position.y >= 7.82087f)
+        if (transform.position.y >= 4.7162071f)
         {
-            transform.position = new Vector3(transform.position.x, -5.807765f, 0);
+            transform.position = new Vector3(transform.position.x, -3.848022f, 0);
         }
-        else if (transform.position.y <= -5.80628f)
+        else if (transform.position.y <= -3.8480221f)
         {
-            transform.position = new Vector3(transform.position.x, 7.8464151f, 0);
+            transform.position = new Vector3(transform.position.x, 4.716207f, 0);
         }
-        if (transform.position.x >= 17.20577f)
+        if (transform.position.x >= 10.61171f)
         {
-            transform.position = new Vector3(-17.20577f, transform.position.y, 0);
+            transform.position = new Vector3(-9.866952f, transform.position.y, 0);
         }
-        else if (transform.position.x <= -17.20577f)
+        else if (transform.position.x <= -9.8669521f)
         {
-            transform.position = new Vector3(17.20577f, transform.position.y, 0);
+            transform.position = new Vector3(10.6117f, transform.position.y, 0);
         }
     }
     void playerShoot()
@@ -157,6 +166,8 @@ public class Player : MonoBehaviour
         if(health < 1)
         {
             spawnManager.nomoreEnemy();
+            spawnManager.nomoreTriple();
+            spawnManager.nomoreSpeed();
             Destroy(this.gameObject);
         }
     }
@@ -171,5 +182,17 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         tripleShot= false;
+    }
+
+    public void speedupReady()
+    {
+        speedUp = true;
+        StartCoroutine(usespeedupClose());
+    }
+
+    IEnumerator usespeedupClose()
+    {
+        yield return new WaitForSeconds(5);
+        speedUp = false;
     }
 }

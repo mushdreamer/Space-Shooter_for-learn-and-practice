@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,14 @@ public class TripleShot : MonoBehaviour
     [SerializeField]
     private float speed = 3.0f;
     private Player TripleShotReady;
+    private Player SpeedUpReady;
+    [SerializeField]
+    private int PowerUpID;
     // Start is called before the first frame update
     void Start()
     {
         TripleShotReady = GameObject.Find("Player").GetComponent<Player>();
+        SpeedUpReady = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -28,8 +33,16 @@ public class TripleShot : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            TripleShotReady.tripleshotReady();
-            Destroy(this.gameObject);
+            if (PowerUpID == 0)
+            {
+                TripleShotReady.tripleshotReady();
+                Destroy(this.gameObject);
+            }
+            else if (PowerUpID == 1)
+            {
+                SpeedUpReady.speedupReady();
+                Destroy(this.gameObject);
+            }
         }
     }
 }
