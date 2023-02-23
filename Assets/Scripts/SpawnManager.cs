@@ -61,5 +61,5 @@ public class SpawnManager : MonoBehaviour
     {
         startSpawnPowerUp = false;
     }
-    
+    /*浅浅测试一下git的功能*/
 }
