@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float speed = 2.0f;
-    // Start is called before the first frame update
+
+    private Player player;
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,10 @@ public class Enemy : MonoBehaviour
         }
         if (other.tag == "Bullets")
         {
+            if(player != null)
+            {
+                player.addScore(10);//这样子这种enemy的分数就变成10了，如果我们有多种enemy我们就可以分配不同的分数奖励，或是分配不同的资源奖励
+            }
             Destroy(this.gameObject);
         }
     }

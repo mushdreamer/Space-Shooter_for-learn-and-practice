@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -40,11 +41,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject shieldVisualizer;
     // Start is called before the first frame update
+    [SerializeField]
+    private int Score = 0;
+
+    private UI_Manager UI_Manager;
     void Start()
     {
         transform.position = new Vector3(0, -1.47f, 0);
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
+        UI_Manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
     }
 
     // Update is called once per frame每秒都要检查的状态都写在update里
@@ -132,17 +138,17 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, 4.659515f, 0);
         }
-        else if (transform.position.y <= -2.692139f)
+        else if (transform.position.y <= -4.0f)
         {
-            transform.position = new Vector3(transform.position.x, -2.692139f, 0);
+            transform.position = new Vector3(transform.position.x, -4.0f, 0);
         }
-        if (transform.position.x >= 10.61171f)
+        if (transform.position.x >= 14.51f)
         {
-            transform.position = new Vector3(-9.866952f, transform.position.y, 0);
+            transform.position = new Vector3(-14.52f, transform.position.y, 0);
         }
-        else if (transform.position.x <= -9.8669521f)
+        else if (transform.position.x <= -14.51f)
         {
-            transform.position = new Vector3(10.6117f, transform.position.y, 0);
+            transform.position = new Vector3(14.5f, transform.position.y, 0);
         }
     }
     void playerShoot()
@@ -224,4 +230,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5);
         shieldStatus = false;
     }*/
+
+    public void addScore(int point)
+    {
+        Score = Score + point;
+        UI_Manager.updateScore(Score);
+    }
 }
