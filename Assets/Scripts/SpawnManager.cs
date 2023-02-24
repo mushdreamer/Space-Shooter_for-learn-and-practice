@@ -62,5 +62,5 @@ public class SpawnManager : MonoBehaviour
         startSpawnPowerUp = false;
     }
 
-/*Everything Good Boy?*/
+/*到底行不行啊！！*/
 }
