@@ -193,6 +193,7 @@ public class Player : MonoBehaviour
             spawnManager.nomoreEnemy();
             spawnManager.nomorePowerUp();
             Destroy(this.gameObject);
+            UI_Manager.updateGameOver();
         }
     }
 

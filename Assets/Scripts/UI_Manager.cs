@@ -10,14 +10,18 @@ public class UI_Manager : MonoBehaviour
     private Text Desk_toshow_Score;
 
     [SerializeField]
-    private Image Desk_toshow_lives;//这个相当于一个展示柜，我们将照片搬出来，然后放置在展示柜上
+    private Image Desk_toshow_lives;//这个相当于一个展示柜，我们将照片搬出来，然后放置在展示柜上.Let UI Manager know what we want to show exist
 
     [SerializeField]
     private Sprite[] Lives;//这个是照片的几种状态
+
+    [SerializeField]
+    private Text Desk_toshow_GameOver;
     // Start is called before the first frame update
     void Start()
     {
         Desk_toshow_Score.text = "Score: " + 0;
+        Desk_toshow_GameOver.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,5 +34,11 @@ public class UI_Manager : MonoBehaviour
     public void updateLive(int health)
     {
         Desk_toshow_lives.sprite = Lives[health];//而影响照片的因素是血量，因此我们将三者结合成这一行代码
+    }
+
+    public void updateGameOver()
+    {
+        Desk_toshow_GameOver.gameObject.SetActive(true);
+        Time.timeScale = 0;//pause the game
     }
 }
