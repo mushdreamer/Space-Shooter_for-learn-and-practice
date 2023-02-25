@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
             else
             {
                 health -= 1;
+                UI_Manager.updateLive(health);
             }
         }
     }
