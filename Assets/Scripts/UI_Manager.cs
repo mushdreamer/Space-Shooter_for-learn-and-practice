@@ -17,11 +17,18 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField]
     private Text Desk_toshow_GameOver;
+
+    [SerializeField]
+    private Text Desk_toshow_Restart;
     // Start is called before the first frame update
+
+    private GameManager gameOver;
     void Start()
     {
+        gameOver = GameObject.Find("GameManager").GetComponent<GameManager>();
         Desk_toshow_Score.text = "Score: " + 0;
         Desk_toshow_GameOver.gameObject.SetActive(false);
+        Desk_toshow_Restart.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,7 +45,22 @@ public class UI_Manager : MonoBehaviour
 
     public void updateGameOver()
     {
+        gameOver.GameOver();
         Desk_toshow_GameOver.gameObject.SetActive(true);
-        Time.timeScale = 0;//pause the game
+        Desk_toshow_Restart.gameObject.SetActive(true);
+        StartCoroutine(gameOverFlicker());
+    }
+
+    IEnumerator gameOverFlicker()
+    {
+        while (true)
+        {
+            Desk_toshow_GameOver.text = "GAME OVER";
+            Desk_toshow_Restart.text = "Press R to Restart";
+            yield return new WaitForSeconds(0.5f);
+            Desk_toshow_GameOver.text = "";
+            Desk_toshow_Restart.text = "";
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

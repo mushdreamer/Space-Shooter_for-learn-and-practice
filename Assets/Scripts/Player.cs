@@ -134,9 +134,9 @@ public class Player : MonoBehaviour
         /*滚动屏幕逻辑（视觉效果非实际滚动）
           当玩家在最右边屏幕上时，让玩家从左边出现。反之玩家在最左边屏幕时，让玩家从右边出现
           当玩家在最上面屏幕时，让玩家在下面出现，繁殖玩家在最下面屏幕时，让玩家从上面出现*/
-        if (transform.position.y >= 4.659515f)
+        if (transform.position.y >= 6.18f)
         {
-            transform.position = new Vector3(transform.position.x, 4.659515f, 0);
+            transform.position = new Vector3(transform.position.x, 6.18f, 0);
         }
         else if (transform.position.y <= -4.0f)
         {
