@@ -10,21 +10,25 @@ public class SpawnManager : MonoBehaviour
     private GameObject enemy;
     [SerializeField]
     private GameObject[] PowerUp;
+    [SerializeField]
+    private bool find_Asteroid;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(spawnEnemy());
         StartCoroutine(spawnPowerUp());
+        find_Asteroid = GameObject.Find("Asteroid").GetComponent<Asteroid>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+/*        find_Asteroid = if_Asteroid_Alive;*/
     }
     IEnumerator spawnEnemy()
     {
-        while (startSpawnEnemy == true)
+        while (startSpawnEnemy == true && find_Asteroid == false)
         {
             Vector3 spawnPosition = new Vector3(Random.Range(-9.866952f, 10.6117f), 7.0f, 0);
             Instantiate(enemy, spawnPosition, Quaternion.identity);
