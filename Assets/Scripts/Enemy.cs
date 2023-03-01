@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     private float speed = 2.0f;
 
+    private Animator Enemy_Anim;
+
     private Player player;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        
+        Enemy_Anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,7 +39,9 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Destroy(this.gameObject);
+            Enemy_Anim.SetTrigger("On_Enemy_Death");
+            speed = 0f;
+            Destroy(this.gameObject, 2.633f);            
         }
         if (other.tag == "Bullets")
         {
@@ -42,7 +49,9 @@ public class Enemy : MonoBehaviour
             {
                 player.addScore(10);//这样子这种enemy的分数就变成10了，如果我们有多种enemy我们就可以分配不同的分数奖励，或是分配不同的资源奖励
             }
-            Destroy(this.gameObject);
+            Enemy_Anim.SetTrigger("On_Enemy_Death");
+            speed = 0f;
+            Destroy(this.gameObject, 2.633f);
         }
     }
 }
