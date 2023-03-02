@@ -40,6 +40,10 @@ public class Player : MonoBehaviour
     private int health = 3;
     [SerializeField]
     private GameObject shieldVisualizer;
+    [SerializeField]
+    private GameObject Hurt_First_Visualizer;
+    [SerializeField]
+    private GameObject Hurt_Second_Visualizer;
     // Start is called before the first frame update
     [SerializeField]
     private int Score = 0;
@@ -51,6 +55,8 @@ public class Player : MonoBehaviour
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
         UI_Manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        Hurt_First_Visualizer.SetActive(false);
+        Hurt_Second_Visualizer.SetActive(false);
     }
 
     // Update is called once per frame每秒都要检查的状态都写在update里
@@ -64,6 +70,7 @@ public class Player : MonoBehaviour
             playerShoot();
         }
         playerDeath();
+        hurt_visualizer();
     }
 
     void playerMovement()
@@ -237,5 +244,24 @@ public class Player : MonoBehaviour
     {
         Score = Score + point;
         UI_Manager.updateScore(Score);
+    }
+
+    public void hurt_visualizer()
+    {
+        if (health == 3)
+        {
+            Hurt_First_Visualizer.SetActive(false);
+            Hurt_Second_Visualizer.SetActive(false);
+        }
+        else if (health == 2)
+        {
+            Hurt_First_Visualizer.SetActive(true);
+            Hurt_Second_Visualizer.SetActive(false);
+        }
+        else if (health == 1)
+        {
+            Hurt_First_Visualizer.SetActive(true);
+            Hurt_Second_Visualizer.SetActive(true);
+        }
     }
 }

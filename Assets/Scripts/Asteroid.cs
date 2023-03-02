@@ -11,11 +11,13 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private Animator Asteroid_Anim;
 
-/*    public bool if_Asteroid_Alive;*/
+    [SerializeField]
+    private SpawnManager SpawnEnemy;
     // Start is called before the first frame update
     void Start()
     {
         Asteroid_Anim = GetComponent<Animator>();
+        SpawnEnemy = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -29,13 +31,13 @@ public class Asteroid : MonoBehaviour
         {
             Asteroid_Anim.SetTrigger("Asteroid_Explosion");
             Destroy(this.gameObject, 2.633f);
-/*            if_Asteroid_Alive = false;*/
+            SpawnEnemy.startSpawning();
         }
         if (other.tag == "Player")
         {
             Asteroid_Anim.SetTrigger("Asteroid_Explosion");
             Destroy(this.gameObject, 2.633f);
-/*            if_Asteroid_Alive = false;*/
+            SpawnEnemy.startSpawning();
         }
     }
 }
