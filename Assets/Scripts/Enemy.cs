@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
             Enemy_Anim.SetTrigger("On_Enemy_Death");
             speed = 0f;
             Enemy_Destroy_Source.Play();
+            Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.633f);            
         }
         if (other.tag == "Bullets")
@@ -59,6 +60,7 @@ public class Enemy : MonoBehaviour
             }
             Enemy_Anim.SetTrigger("On_Enemy_Death");
             speed = 0f;
+            Destroy(GetComponent<Collider2D>());
             Enemy_Destroy_Source.Play();
             Destroy(this.gameObject, 2.633f);
         }

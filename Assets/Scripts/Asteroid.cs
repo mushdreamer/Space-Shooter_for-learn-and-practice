@@ -37,6 +37,7 @@ public class Asteroid : MonoBehaviour
         if (other.tag == "Bullets")
         {
             Asteroid_Anim.SetTrigger("Asteroid_Explosion");
+            Destroy(GetComponent<Collider2D>());//消除碰撞体积这样在2.633秒内就不能再次攻击或被这个gameobject攻击了
             Destroy(this.gameObject, 2.633f);
             Asteroid_Destroy_Source.Play();
             SpawnEnemy.startSpawning();
@@ -44,6 +45,7 @@ public class Asteroid : MonoBehaviour
         if (other.tag == "Player")
         {
             Asteroid_Anim.SetTrigger("Asteroid_Explosion");
+            Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.633f);
             Asteroid_Destroy_Source.Play();
             SpawnEnemy.startSpawning();
