@@ -12,18 +12,12 @@ public class TripleShot : MonoBehaviour
     private Player ShieldReady;
     [SerializeField]
     private int PowerUpID;
-    [SerializeField]
-    private AudioClip PowerUp;
-    [SerializeField]
-    private AudioSource PowerUpSource;
-    // Start is called before the first frame update
+
     void Start()
     {
         TripleShotReady = GameObject.Find("Player").GetComponent<Player>();
         SpeedUpReady = GameObject.Find("Player").GetComponent<Player>();
         ShieldReady = GameObject.Find("Player").GetComponent<Player>();
-        PowerUpSource = GetComponent<AudioSource>();
-        PowerUpSource.clip = PowerUp;
     }
 
     // Update is called once per frame
@@ -55,17 +49,14 @@ public class TripleShot : MonoBehaviour
             {
                 case 0:
                     TripleShotReady.tripleshotReady();
-                    PowerUpSource.Play();
                     Destroy(this.gameObject);
                     break;
                 case 1:
                     SpeedUpReady.speedupReady();
-                    PowerUpSource.Play();
                     Destroy(this.gameObject);
                     break;
                 case 2:
                     ShieldReady.shieldReady();
-                    PowerUpSource.Play();
                     Destroy(this.gameObject);
                     break;
             }

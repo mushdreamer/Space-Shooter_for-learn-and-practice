@@ -54,6 +54,10 @@ public class Player : MonoBehaviour
     private AudioClip SaveShot;//用以存储声音
     [SerializeField]
     private AudioSource ShotSourve;//播放台用以播放声音
+    [SerializeField]
+    private AudioClip PowerUp;
+    [SerializeField]
+    private AudioSource PowerUpSourve;
 
     void Start()
     {
@@ -62,9 +66,11 @@ public class Player : MonoBehaviour
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
         UI_Manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
         ShotSourve = GetComponent<AudioSource>();
+        PowerUpSourve = GetComponent<AudioSource>();
         Hurt_First_Visualizer.SetActive(false);
         Hurt_Second_Visualizer.SetActive(false);
         ShotSourve.clip = SaveShot;//把存储的声音拿出来放到播放台
+        /*PowerUpSourve.clip = PowerUp;*/
     }
 
     // Update is called once per frame每秒都要检查的状态都写在update里
@@ -216,6 +222,7 @@ public class Player : MonoBehaviour
 
     public void tripleshotReady()
     {
+        ShotSourve.PlayOneShot(PowerUp);
         tripleShot = true;
         StartCoroutine(usetripleshotClose());
     }
@@ -228,6 +235,7 @@ public class Player : MonoBehaviour
 
     public void speedupReady()
     {
+        ShotSourve.PlayOneShot(PowerUp);
         speedUp = true;
         StartCoroutine(usespeedupClose());
     }
@@ -240,6 +248,7 @@ public class Player : MonoBehaviour
 
     public void shieldReady()
     {
+        ShotSourve.PlayOneShot(PowerUp);
         shieldStatus = true;
         shieldVisualizer.SetActive(true);
         /*StartCoroutine(useshieldClose());*/

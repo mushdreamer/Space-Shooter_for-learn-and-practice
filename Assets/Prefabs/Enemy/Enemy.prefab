@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7011299346444048132}
   - component: {fileID: -5973593691105743466}
   - component: {fileID: 4460558409872802453}
-  - component: {fileID: -6150721517731089381}
+  - component: {fileID: 4470915147286191331}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -170,7 +170,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &-6150721517731089381
+--- !u!82 &4470915147286191331
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

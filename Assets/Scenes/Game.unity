@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 1393578138}
   - component: {fileID: 1393578137}
   - component: {fileID: 1393578140}
-  - component: {fileID: 1393578141}
+  - component: {fileID: 1393578142}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1265,6 +1265,8 @@ MonoBehaviour:
   Score: 0
   SaveShot: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   ShotSourve: {fileID: 0}
+  PowerUp: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  PowerUpSourve: {fileID: 0}
 --- !u!212 &1393578138
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1362,7 +1364,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4437423, y: 3.4861073}
   m_EdgeRadius: 0
---- !u!82 &1393578141
+--- !u!82 &1393578142
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1373,7 +1375,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
