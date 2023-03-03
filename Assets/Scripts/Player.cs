@@ -49,14 +49,22 @@ public class Player : MonoBehaviour
     private int Score = 0;
 
     private UI_Manager UI_Manager;
+
+    [SerializeField]
+    private AudioClip SaveShot;//用以存储声音
+    [SerializeField]
+    private AudioSource ShotSourve;//播放台用以播放声音
+
     void Start()
     {
         transform.position = new Vector3(0, -1.47f, 0);
 
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();//这样spawnManager这个variable就能够调用SpawnManager文件里面的函数了
         UI_Manager = GameObject.Find("Canvas").GetComponent<UI_Manager>();
+        ShotSourve = GetComponent<AudioSource>();
         Hurt_First_Visualizer.SetActive(false);
         Hurt_Second_Visualizer.SetActive(false);
+        ShotSourve.clip = SaveShot;//把存储的声音拿出来放到播放台
     }
 
     // Update is called once per frame每秒都要检查的状态都写在update里
@@ -165,9 +173,11 @@ public class Player : MonoBehaviour
         if (tripleShot == true)
         {
             Instantiate(tripleKill, transform.position, Quaternion.identity);
+            ShotSourve.Play();
         } else
         {
             Instantiate(bullets, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+            ShotSourve.Play();
         }
             
     }
