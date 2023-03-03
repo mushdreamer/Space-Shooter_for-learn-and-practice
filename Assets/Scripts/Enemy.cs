@@ -11,10 +11,17 @@ public class Enemy : MonoBehaviour
     private Animator Enemy_Anim;
 
     private Player player;
+
+    [SerializeField]
+    private AudioClip Enemy_Destroy;
+    [SerializeField]
+    private AudioSource Enemy_Destroy_Source;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
-        
+        Enemy_Destroy_Source = GetComponent<AudioSource>();
+        Enemy_Destroy_Source.clip = Enemy_Destroy;
+
         Enemy_Anim = GetComponent<Animator>();
     }
 
@@ -41,6 +48,7 @@ public class Enemy : MonoBehaviour
         {
             Enemy_Anim.SetTrigger("On_Enemy_Death");
             speed = 0f;
+            Enemy_Destroy_Source.Play();
             Destroy(this.gameObject, 2.633f);            
         }
         if (other.tag == "Bullets")
@@ -51,6 +59,7 @@ public class Enemy : MonoBehaviour
             }
             Enemy_Anim.SetTrigger("On_Enemy_Death");
             speed = 0f;
+            Enemy_Destroy_Source.Play();
             Destroy(this.gameObject, 2.633f);
         }
     }
