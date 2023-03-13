@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4286333367533412638}
   m_Layer: 0
   m_Name: Enemy_Shot
-  m_TagString: Untagged
+  m_TagString: Bullets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3003621412261436497}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4807708, y: -1.456387, z: -0.018823192}
+  m_LocalPosition: {x: -1.5, y: -1.5, z: -0.018823192}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8803854
+      value: 0.254
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3668065
+      value: -0.606
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -136,11 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6053854
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3668065
+      value: -0.607
       objectReference: {fileID: 0}
     - target: {fileID: 7496927295838276789, guid: 51b81c0086a57a446b1d2d69344dcbf3, type: 3}
       propertyPath: m_LocalPosition.z

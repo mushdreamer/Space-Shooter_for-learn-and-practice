@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy_Destroy: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   Enemy_Destroy_Source: {fileID: 0}
+  Enemy_Bullets: {fileID: 3003621412261436497, guid: 6c76e3a0267b3ca4d94b1e5a068a6aaa, type: 3}
 --- !u!212 &7602708222599263373
 SpriteRenderer:
   m_ObjectHideFlags: 0
