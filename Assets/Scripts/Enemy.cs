@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         Enemy_Destroy_Source.clip = Enemy_Destroy;
 
         Enemy_Anim = GetComponent<Animator>();
-    }
+}
 
     // Update is called once per frame
     void Update()
@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 2.633f);            
         }
-        if (other.tag == "Bullets")
+        if (other.tag == "Bullets" && other.GetComponent<Bullets>().isEnemyBullets == false)
         {
             if(player != null)
             {

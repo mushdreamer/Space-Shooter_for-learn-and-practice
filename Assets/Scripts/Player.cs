@@ -204,12 +204,11 @@ public class Player : MonoBehaviour
             }
             else
             {
-                health -= 1;
-                UI_Manager.updateLive(health);
+                playerDamage();
             }
         }
     }
-    void playerDeath()
+    public void playerDeath()
     {
         if(health < 1)
         {
@@ -218,6 +217,12 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
             UI_Manager.updateGameOver();
         }
+    }
+
+    public void playerDamage()
+    {
+        health -= 1;
+        UI_Manager.updateLive(health);
     }
 
     public void tripleshotReady()

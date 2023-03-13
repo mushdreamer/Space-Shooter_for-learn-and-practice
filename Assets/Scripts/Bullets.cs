@@ -6,7 +6,7 @@ public class Bullets : MonoBehaviour
 {
     private float Speed = 7.0f;
 
-    private bool isEnemyBullets = false;
+    public bool isEnemyBullets = false;
 
     // Update is called once per frame
     void Update()
@@ -68,12 +68,17 @@ public class Bullets : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && isEnemyBullets == false)
         {
             Destroy(this.gameObject);
             /*Destroy(other.gameObject);*/
+        }
+        else if(other.tag == "Player" && isEnemyBullets == true)
+        {
+            Player player = other.GetComponent<Player>();
+            player.playerDamage();
         }
     }
     public void PlayerBullets()
